@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,23 +32,31 @@ fun ContactListContainer(modifier: Modifier = Modifier) {
         )
     }
 
-    if (!isGranted) {
-        Text(
-            text = "No permission granted. Grant it and restart",
-            textAlign = TextAlign.Center,
-            modifier = modifier.fillMaxWidth()
-        )
-        val permissionLauncher = rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted ->
-            if (isGranted) {
-
-            } else {
-
-            }
-        }
-
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        isGranted = granted
     }
 
-    ContactList(modifier,  context.fetchAllContacts())
+    LaunchedEffect(Unit) {
+        if (!isGranted) {
+            permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+        }
+    }
+
+    if (!isGranted) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth(),
+        ) {
+            Text(
+                text = "No permission granted. Grant it and restart",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        return
+    }
+
+    ContactList(modifier, context.fetchAllContacts())
 }
