@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.core.database.getStringOrNull
 
+
 data class Contact(val name: String?, val phoneNumber: String?, val email: String?)
+
 
 @SuppressLint("Range")
 fun Context.fetchAllContacts(): List<Contact> {
