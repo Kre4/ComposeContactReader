@@ -24,6 +24,7 @@ fun Context.fetchAllContacts(): List<Contact> {
 
                     add(Contact(name, phoneNumber, email))
                 }
-            }.filter { it.name != null && it.name.matches(Regex("[a-zA-Z0-9 ]*")) }
+            }
+//                .filter { it.name != null && it.name.matches(Regex("[a-zA-Z0-9 ]*")) }
         }
 }
