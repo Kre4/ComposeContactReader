@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +51,7 @@ fun ContactListContainer(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
         ) {
             Text(
-                text = "No permission granted. Grant it and restart",
+                text = stringResource(R.string.no_permission),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )

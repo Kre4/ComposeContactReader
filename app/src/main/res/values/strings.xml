@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ContactReader</string>
+    <string name="no_permission">No permission granted. Grant it and restart</string>
+    <string name="no_contacts">No contacts found</string>
+    <string name="contacts_length">Found %1$d contacts!</string>
 </resources>
