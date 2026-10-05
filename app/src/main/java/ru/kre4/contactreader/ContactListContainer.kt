@@ -58,5 +58,7 @@ fun ContactListContainer(modifier: Modifier = Modifier) {
         return
     }
 
-    ContactList(modifier, context.fetchAllContacts())
+    var contacts by rememberSaveable { mutableStateOf( context.fetchAllContacts()) }
+
+    ContactList(modifier, contacts)
 }
