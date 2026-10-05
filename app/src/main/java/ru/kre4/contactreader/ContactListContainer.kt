@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,8 +15,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.core.content.ContextCompat
+import ru.kre4.contactreader.util.ContactListSaver
 import ru.kre4.contactreader.util.fetchAllContacts
 
 @Composable
@@ -59,7 +60,9 @@ fun ContactListContainer(modifier: Modifier = Modifier) {
         return
     }
 
-    var contacts by rememberSaveable { mutableStateOf( context.fetchAllContacts()) }
+    var contacts by rememberSaveable(stateSaver = ContactListSaver) {
+        mutableStateOf(context.fetchAllContacts())
+    }
 
     ContactList(modifier, contacts)
 }

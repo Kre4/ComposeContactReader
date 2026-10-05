@@ -4,9 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
+import androidx.compose.runtime.saveable.listSaver
 import androidx.core.database.getStringOrNull
+import kotlin.collections.chunked
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.component3
 
 data class Contact(val name: String?, val phoneNumber: String?, val email: String?)
+
+val ContactListSaver = listSaver<List<Contact>, String>(
+    save = { contacts ->
+        contacts.flatMap { listOf(it.name.orEmpty(), it.phoneNumber.orEmpty(), it.email.orEmpty()) }
+    },
+    restore = { saved ->
+        saved.chunked(3).map { (name, phone, email) -> Contact(name, phone, email) }
+    },
+)
 
 @SuppressLint("Range")
 fun Context.fetchAllContacts(): List<Contact> {
