@@ -21,15 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.kre4.contactreader.util.Contact
 
 @Composable
 fun ContactList(
     modifier: Modifier = Modifier,
-    viewModel: ViewModel = viewModel()
-) {
+    contacts: List<Contact>) {
     val context = LocalContext.current
-    val contacts = viewModel.contacts
 
     if (contacts.isEmpty()) {
         Text(
